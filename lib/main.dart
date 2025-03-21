@@ -22,7 +22,9 @@ IconsData iconData = IconsData();
 OtherData otherData = OtherData();
 ScreenUtil screenUtil = ScreenUtil();
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(Duration(milliseconds: 1000));
   runApp(const MyApp());
 }
 
@@ -33,23 +35,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         designSize: Size(360, 854),
-        builder: (context, child) {
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (context) => CalenderController()),
-            ],
-            child: MaterialApp(
-              title: 'Meet Sync',
-              theme: ThemeData(
-                scaffoldBackgroundColor: appColors.black000000,
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-              ),
-              debugShowCheckedModeBanner: false,
-              routes: routes,
-              initialRoute: appRoutes.dashBoard,
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => CalenderController()),
+          ],
+          child: MaterialApp(
+            title: 'Meet Sync',
+            theme: ThemeData(
+              scaffoldBackgroundColor: appColors.black000000,
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
             ),
-          );
-        });
+            debugShowCheckedModeBanner: false,
+            routes: routes,
+            initialRoute: appRoutes.dashBoard,
+          ),
+        ),);
   }
 }
